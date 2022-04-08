@@ -29,7 +29,7 @@ export default class rendez_vous extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 150, paddingTop: 30, backgroundColor: '#fff' },
+  container: { flex: 1, padding: 20, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
   text: { margin: 6 }
 });

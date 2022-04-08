@@ -11,9 +11,10 @@ function MyTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="rendez_vous"
+      initialRouteName="stock"
       screenOptions={{
         tabBarActiveTintColor: '#2b8eff',
+        headerShown: false
       }}
     >
         <Tab.Screen
