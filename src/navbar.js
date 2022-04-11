@@ -11,7 +11,7 @@ function MyTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="stock"
+      initialRouteName="accueil"
       screenOptions={{
         tabBarActiveTintColor: '#2b8eff',
         headerShown: false
