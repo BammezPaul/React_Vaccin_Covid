@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { StyleSheet, View, Text, TextInput, ScrollView, Pressable } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import RNPickerSelect from 'react-native-picker-select';
 
 class Rendez_vous extends Component {
 
@@ -58,6 +59,19 @@ class Rendez_vous extends Component {
                         />
                     </View>
                     <View>
+                    <RNPickerSelect style={pickerSelectStyles}
+                        placeholder={{
+                            label: 'Choisir un vaccin ...',
+                            value: null,
+                        }}
+                        items={[
+                            { label: 'Pfizer', value: 'pfizer' },
+                            { label: 'Astrazeneca', value: 'astrazeneca' },
+                            { label: 'Moderna', value: 'moderna' },
+                        ]}
+                    />
+                    </View>
+                    <View>
                         <TextInput style={styles.input}
                             placeholder="Nom du vaccin"
                             value = {this.state.nomVaccin}
@@ -92,6 +106,28 @@ class Rendez_vous extends Component {
 
 
 }
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'purple',
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  });
 
 const styles = StyleSheet.create({
     content: {
