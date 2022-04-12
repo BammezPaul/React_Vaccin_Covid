@@ -13,7 +13,6 @@ class Rendez_vous extends Component {
         dateRes: "",
         nomVaccin:"", 
         nbrDoses: "",
-        numSerieVaccin: ""
     }
 
     render() {
@@ -63,13 +62,6 @@ class Rendez_vous extends Component {
                             placeholder="Nom du vaccin"
                             value = {this.state.nomVaccin}
                             onChangeText={(nomVaccin)=> this.setState({ nomVaccin: nomVaccin })} 
-                        />
-                    </View>
-                    <View>
-                        <TextInput style={styles.input}
-                            placeholder="Numéro de série du vaccin"
-                            value = {this.state.numSerieVaccin}
-                            onChangeText={(numSerieVaccin)=> this.setState({ numSerieVaccin: numSerieVaccin })} 
                         />
                     </View>
                     <View>
