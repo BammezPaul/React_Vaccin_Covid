@@ -26,7 +26,7 @@ export default class stock extends Component {
           </View>
           <View style={styles.container}>
             <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-              <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
+              <Row data={state.tableHead} style={styles.head} textStyle={styles.textheader}/>
               <Rows data={state.tableData} textStyle={styles.text}/>
             </Table>
           </View>
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#89c2d9' },
   text: { margin: 6 },
+  textheader: { margin: 6, color: 'white', fontWeight:'bold'},
   titre: {
     fontSize:20,
     marginTop:15,
