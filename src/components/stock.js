@@ -37,10 +37,10 @@ export default class stock extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, paddingTop: 30, backgroundColor: '#fff' },
+  container: { flex: 1, paddingLeft: '20%', paddingRight:'20%', paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#89c2d9' },
-  text: { margin: 6 },
-  textheader: { margin: 6, color: 'white', fontWeight:'bold'},
+  text: { margin: 6, textAlign:'center' },
+  textheader: { margin: 6, textAlign:'center', color: 'white', fontWeight:'bold'},
   titre: {
     fontSize:20,
     marginTop:15,
