@@ -16,6 +16,22 @@ class Rendez_vous extends Component {
         nbrDoses: "",
     }
 
+   /* async getStockVaccin() {
+        try {
+          const response = await fetch('http://127.0.0.1:5000/api/vaccin');
+          const json = await response.json();
+          this.setState({ data: json.stock });
+        } catch (error) {
+          console.log(error);
+        } finally {
+          this.setState({ isLoading: false });
+        }
+      }
+    
+      componentDidMount() {
+        this.getStockVaccin();
+      }*/
+
     render() {
         return(
             <KeyboardAwareScrollView>

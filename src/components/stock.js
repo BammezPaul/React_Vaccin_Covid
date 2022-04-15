@@ -3,17 +3,36 @@ import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-nativ
 import { Table, Row, Rows } from 'react-native-table-component';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default class stock extends Component {
+export default class Stock extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tableHead: ['Nom du vaccin', 'Stock restant'],
-      tableData: [
-        ['Pfizer', '27'],
-        ['Astrazeneca', '54'],
-        ['Moderna', '36'],
-      ]
+      tableData: []
     }
+  }
+
+  async getStockVaccin() {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/vaccin');
+      const json = await response.json();
+      console.log(json[0].quantitee_disponible)
+      let liste_vaccin = []
+      console.log(liste_vaccin)
+      json.forEach(vaccin => {
+        liste_vaccin.push([vaccin.nom_vaccin, vaccin.quantitee_disponible])
+      });
+      console.log(liste_vaccin)
+      this.setState({ tableData: liste_vaccin});
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
+  componentDidMount() {
+    this.getStockVaccin();
   }
 
   render() {
