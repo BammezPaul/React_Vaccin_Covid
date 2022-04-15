@@ -16,9 +16,7 @@ export default class Stock extends Component {
     try {
       const response = await fetch('http://127.0.0.1:5000/api/vaccin');
       const json = await response.json();
-      console.log(json[0].quantitee_disponible)
       let liste_vaccin = []
-      console.log(liste_vaccin)
       json.forEach(vaccin => {
         liste_vaccin.push([vaccin.nom_vaccin, vaccin.quantitee_disponible])
       });

@@ -17,7 +17,7 @@ export default class Accueil extends Component {
     }
   }
 
-  /*async getPatient() {
+  async getPatient() {
     try {
       const response = await fetch('http://127.0.0.1:5000/api/rendez_vous');
       const json = await response.json();
@@ -31,7 +31,7 @@ export default class Accueil extends Component {
 
   componentDidMount() {
     this.getPatient();
-  }*/
+  }
 
   render() {
     const state = this.state;
