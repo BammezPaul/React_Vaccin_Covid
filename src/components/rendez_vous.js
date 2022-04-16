@@ -7,7 +7,7 @@ import RNPickerSelect from 'react-native-picker-select';
 class Rendez_vous extends Component {
 
     state = {
-        nom: "",
+        nom: "Bammez",
         prenom: "",
         dateNaissance: "",
         numSecuriteSociale: "",
@@ -16,7 +16,11 @@ class Rendez_vous extends Component {
         nbrDoses: "",
     }
 
-   /* async getStockVaccin() {
+    async ajout_rendez_vous(){
+        console.log(this.state.nom)
+    }
+
+   async getStockVaccin() {
         try {
           const response = await fetch('http://127.0.0.1:5000/api/vaccin');
           const json = await response.json();
@@ -30,7 +34,7 @@ class Rendez_vous extends Component {
     
       componentDidMount() {
         this.getStockVaccin();
-      }*/
+      }
 
     render() {
         return(
@@ -75,6 +79,7 @@ class Rendez_vous extends Component {
                         />
                     </View>
                     <View>
+                    {/*
                     <RNPickerSelect style={pickerSelectStyles}
                         placeholder={{
                             label: 'Choisir un vaccin ...',
@@ -85,7 +90,7 @@ class Rendez_vous extends Component {
                             { label: 'Astrazeneca', value: 'astrazeneca' },
                             { label: 'Moderna', value: 'moderna' },
                         ]}
-                    />
+                    />*/}
                     </View>
                     <View>
                         <TextInput style={styles.input}
@@ -102,7 +107,7 @@ class Rendez_vous extends Component {
                         />
                     </View>
                     
-                    <Pressable style={styles.button} onPress={this.verification}>
+                    <Pressable style={styles.button} onPress={this.ajout_rendez_vous}>
                         <Text style={styles.textButton}>Envoyer</Text>
                     </Pressable>
                 </ScrollView>

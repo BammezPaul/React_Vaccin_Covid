@@ -8,20 +8,31 @@ export default class Accueil extends Component {
     super(props);
     this.state = {
       tableHead: ['Nom', 'Prénom', 'Date de naissance', 'Numéro de sécurité sociale', 'Date de vaccination', 'Nom du vaccin', 'Quelle dose ?',],
-      tableData: [
-        ['Paul', 'Bammez', '28/04/2002', '269054958815780', '15/09/2022', 'Pfizer', 3],
-        ['Denis', 'Jongmanee', '12/02/1996', '269029558815780', '22/09/2022', 'Moderna', 2],
-        ['Pierrick', 'Bauffe', '23/09/2002', '269054098815780', '01/08/2022', 'Pfizer', 3],
-        ['Thibault', 'Balleux', '04/07/2002', '269054496715780', '26/08/2022', 'Pfizer', 1],
-      ]
+      tableData: []
     }
+  }
+
+  convertDate = (d) => {
+    let month = String(d.getMonth() + 1);
+    let day = String(d.getDate());
+    const year = String(d.getFullYear());
+  
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+  
+    return `${day}/${month}/${year}`
   }
 
   async getPatient() {
     try {
       const response = await fetch('http://127.0.0.1:5000/api/rendez_vous');
       const json = await response.json();
-      this.setState({ data: json.patient });
+      let liste_rendez_vous = []
+      json.forEach(rendez_vous => {
+        liste_rendez_vous.push([rendez_vous.nom, rendez_vous.prenom, this.convertDate(new Date(rendez_vous.date_naissance)), rendez_vous.num_secu, rendez_vous.date_rendez_vous, rendez_vous.nom_vaccin, rendez_vous.quantieme_dose])
+      });
+      console.log(new Date(json[0].date_rendez_vous).toLocaleDateString('fr-FR'));
+      this.setState({ tableData: liste_rendez_vous});
     } catch (error) {
       console.log(error);
     } finally {
@@ -30,6 +41,7 @@ export default class Accueil extends Component {
   }
 
   componentDidMount() {
+    console.log('test')
     this.getPatient();
   }
 
