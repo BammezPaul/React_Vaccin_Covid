@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import reactDom from 'react-dom';
 
 export default class Accueil extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tableHead: ['Nom', 'Prénom', 'Date de naissance', 'Numéro de sécurité sociale', 'Date de vaccination', 'Nom du vaccin', 'Quelle dose ?',],
-      tableData: []
+      tableData: [],
+      data:[]
     }
   }
 
@@ -58,9 +60,44 @@ export default class Accueil extends Component {
   }
 
   componentDidMount() {
-    console.log('test')
     this.getPatient();
+    this.getStockVaccin();
   }
+
+  async getStockVaccin() {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/vaccin');
+      const json = await response.json();
+      this.setState({ data: json });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
+  createAlert = () =>{
+    if(this.state.data[this.state.indexVaccin].quantitee_disponible -1 < 20){
+        console.log('alerte')
+        Alert.alert(
+        "Stock vaccin insuffisant",
+        `Il vous reste peu de vaccins ${this.state.data[this.state.indexVaccin].nom_vaccin} en stock`,
+        [
+            {
+            text: "Annuler",
+            onPress: () => console.log("Cancel Pressed"),
+            },
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+        );}
+    }
+
+    renderVaccinList = () => {
+      return this.state.data.map((vaccin) => {
+        if(vaccin.quantitee_disponible <= 20)
+        return <Text style={styles.alerte}>Attention ! La quantitée de vaccin {vaccin.nom_vaccin} est inférieure à 20</Text>
+      })
+    }
 
   render() {
     const state = this.state;
@@ -71,6 +108,9 @@ export default class Accueil extends Component {
             <Text style={styles.titre}>Rendez-vous de vaccination</Text>
           </View>
           <View style={styles.container}>
+          <View>
+            {this.renderVaccinList()}
+          </View>
             <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
               <Row data={state.tableHead} style={styles.head} textStyle={styles.textheader}/>
               <Rows data={state.tableData} textStyle={styles.text}/>
@@ -100,4 +140,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: '#2a6f97',
   },
+  alerte: {
+    color: 'red',
+  }
 });

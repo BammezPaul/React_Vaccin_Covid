@@ -19,25 +19,7 @@ class Rendez_vous extends Component {
         nbrDoses: "",
     }
 
-    createAlert = () =>{
-    console.log('alerte')
-    Alert.alert(
-      "Stock vaccin insuffisant",
-      "Il vous reste peu de vaccins en stock",
-      [
-        {
-          text: "Annuler",
-          onPress: () => console.log("Cancel Pressed"),
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );}
-
-    onPress2Fonction = () =>
-    {
-        this.createAlert()
-        this.ajout_rendez_vous()
-    }
+   
 
     ajout_rendez_vous = async () =>{
         const response = await fetch("http://127.0.0.1:5000/api/rendez_vous",
@@ -121,7 +103,6 @@ class Rendez_vous extends Component {
                     <Picker 
                         selectedValue= {this.setState.nomVaccin}
                         onValueChange={(itemValue, itemIndex) => this.setState({nomVaccin: itemValue})}
-
                         style={{ padding: 10,
                         marginLeft:30,
                         marginRight:30,
@@ -135,36 +116,6 @@ class Rendez_vous extends Component {
                         {this.renderVaccinList()}
                     </Picker>
                     </View>
-
-                    <View>
-                    <DatePicker
-                        style={styles.input}
-                        //date={this.state.dateRes} // Initial date from state
-                        mode="datetime" // The enum of date, datetime and time
-                        placeholder="Selectionner la date"
-                        format="DD-MM-YYYY"
-                        minDate="20-04-2022"
-                        maxDate="01-01-2030"
-                        confirmBtnText="Confirmer"
-                        cancelBtnText="Annuler"
-                        customStyles={{
-                            dateIcon: {
-                            //display: 'none',
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0,
-                            },
-                            dateInput: {
-                            marginLeft: 36,
-                            },
-                        }}
-                        onDateChange={(date) => {
-                            this.setState({dateres: date});
-                        }}
-                        />
-                    </View>
-
                     <View>
                         <TextInput style={styles.input}
                             placeholder="De quelle dose s'agit-il ?"
@@ -173,12 +124,17 @@ class Rendez_vous extends Component {
                         />
                     </View>
                     
-                    <Pressable style={styles.button} onPress={this.onPress2Fonction} >
+                    <Pressable style={styles.button} onPress={this.onpressEnvoyer} >
                         <Text style={styles.textButton}>Envoyer</Text>
                     </Pressable>
                 </ScrollView>
             </KeyboardAwareScrollView>
         );
+    }
+
+    onpressEnvoyer = () =>{
+        this.clearInput()
+        this.ajout_rendez_vous()
     }
 
     clearInput = () => {
