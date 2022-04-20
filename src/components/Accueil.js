@@ -23,13 +23,30 @@ export default class Accueil extends Component {
     return `${day}/${month}/${year}`
   }
 
+  convertDateTime = (d) => {
+    let month = String(d.getMonth() + 1);
+    let day = String(d.getDate());
+    const year = String(d.getFullYear());
+    let hour = d.getHours()-2;
+    let minute = String(d.getMinutes());
+    
+    if (hour<0) hour += 24;
+    hour = String(hour);
+    if (hour.length < 2) hour = '0' + hour;
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    if (minute.length < 2) minute = '0' + minute;
+    
+    return `${day}/${month}/${year} ${hour}:${minute}`
+  }
+
   async getPatient() {
     try {
       const response = await fetch('http://127.0.0.1:5000/api/rendez_vous');
       const json = await response.json();
       let liste_rendez_vous = []
       json.forEach(rendez_vous => {
-        liste_rendez_vous.push([rendez_vous.nom, rendez_vous.prenom, this.convertDate(new Date(rendez_vous.date_naissance)), rendez_vous.num_secu, rendez_vous.date_rendez_vous, rendez_vous.nom_vaccin, rendez_vous.quantieme_dose])
+        liste_rendez_vous.push([rendez_vous.nom, rendez_vous.prenom, this.convertDate(new Date(rendez_vous.date_naissance)), rendez_vous.num_secu, this.convertDateTime(new Date(rendez_vous.date_rendez_vous)), rendez_vous.nom_vaccin, rendez_vous.quantieme_dose])
       });
       console.log(new Date(json[0].date_rendez_vous).toLocaleDateString('fr-FR'));
       this.setState({ tableData: liste_rendez_vous});

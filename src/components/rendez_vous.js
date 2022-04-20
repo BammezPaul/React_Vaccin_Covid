@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { StyleSheet, View, Text, TextInput, ScrollView, Pressable, Picker } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView, Pressable, Picker, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-datepicker';
+
+
 
 class Rendez_vous extends Component {
 
@@ -12,13 +14,41 @@ class Rendez_vous extends Component {
         prenom: "",
         dateNaissance: "",
         numSecuriteSociale: "",
-        dateRes: Date.now(),
-        nomVaccin:"", 
+        dateRes: "",
+        nomVaccin:"1", 
         nbrDoses: "",
     }
 
-    async ajout_rendez_vous(){
-        console.log(this.state.nom)
+    createAlert = () =>{
+    console.log('alerte')
+    Alert.alert(
+      "Stock vaccin insuffisant",
+      "Il vous reste peu de vaccins en stock",
+      [
+        {
+          text: "Annuler",
+          onPress: () => console.log("Cancel Pressed"),
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );}
+
+    onPress2Fonction = () =>
+    {
+        this.createAlert()
+        this.ajout_rendez_vous()
+    }
+
+    ajout_rendez_vous = async () =>{
+        const response = await fetch("http://127.0.0.1:5000/api/rendez_vous",
+    {
+        method : "POST",
+        body: JSON.stringify({rendez_vous: this.state}),
+        headers : {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+        console.log(this.state)
     }
 
    async getStockVaccin() {
@@ -42,6 +72,7 @@ class Rendez_vous extends Component {
           return <Picker.Item label={vaccin.nom_vaccin} value={vaccin.id_vaccin} />
         })
       }
+
 
     render() {
         return(
@@ -88,6 +119,7 @@ class Rendez_vous extends Component {
 
                     <View>
                     <Picker 
+                        selectedValue= {this.setState.nomVaccin}
                         onValueChange={(itemValue, itemIndex) => this.setState({nomVaccin: itemValue})}
 
                         style={{ padding: 10,
@@ -141,7 +173,7 @@ class Rendez_vous extends Component {
                         />
                     </View>
                     
-                    <Pressable style={styles.button} onPress={this.ajout_rendez_vous}>
+                    <Pressable style={styles.button} onPress={this.onPress2Fonction} >
                         <Text style={styles.textButton}>Envoyer</Text>
                     </Pressable>
                 </ScrollView>
