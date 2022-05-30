@@ -76,21 +76,6 @@ export default class Accueil extends Component {
     }
   }
 
-  createAlert = () =>{
-    if(this.state.data[this.state.indexVaccin].quantitee_disponible -1 < 20){
-        console.log('alerte')
-        Alert.alert(
-        "Stock vaccin insuffisant",
-        `Il vous reste peu de vaccins ${this.state.data[this.state.indexVaccin].nom_vaccin} en stock`,
-        [
-            {
-            text: "Annuler",
-            onPress: () => console.log("Cancel Pressed"),
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") }
-        ]
-        );}
-    }
 
     renderVaccinList = () => {
       return this.state.data.map((vaccin) => {

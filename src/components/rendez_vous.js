@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { StyleSheet, View, Text, TextInput, ScrollView, Pressable, Picker, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import DatePicker from 'react-native-datepicker';
 
 
 
@@ -98,23 +97,23 @@ class Rendez_vous extends Component {
                             onChangeText={(dateRes)=> this.setState({ dateRes: dateRes })} 
                         />
                     </View>
-
+                    
                     <View>
-                    <Picker 
-                        selectedValue= {this.setState.nomVaccin}
-                        onValueChange={(itemValue, itemIndex) => this.setState({nomVaccin: itemValue})}
-                        style={{ padding: 10,
-                        marginLeft:30,
-                        marginRight:30,
-                        marginBottom:20,
-                        borderWidth: 1,
-                        borderStyle: 'solid',
-                        borderColor: 'black',
-                        borderRadius:5,
-                        backgroundColor: '#89c2d9' 
-                        }}>
-                        {this.renderVaccinList()}
-                    </Picker>
+                        <Picker 
+                            selectedValue= {this.setState.nomVaccin}
+                            onValueChange={(itemValue, itemIndex) => this.setState({nomVaccin: itemValue})}
+                            style={{ padding: 10,
+                            marginLeft:30,
+                            marginRight:30,
+                            marginBottom:20,
+                            borderWidth: 1,
+                            borderStyle: 'solid',
+                            borderColor: 'black',
+                            borderRadius:5,
+                            backgroundColor: '#89c2d9' 
+                            }}>
+                            {this.renderVaccinList()}
+                        </Picker>
                     </View>
                     <View>
                         <TextInput style={styles.input}
